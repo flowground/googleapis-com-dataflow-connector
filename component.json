@@ -1,0 +1,577 @@
+{
+    "title": "Dataflow",
+    "description": "Manages Google Cloud Dataflow projects on Google Cloud Platform.",
+    "docsUrl": "https://cloud.google.com/dataflow",
+    "url": "https://api.apis.guru/v2/specs/googleapis.com/dataflow/v1b3/swagger.json",
+    "envVars": {
+        "OAUTH_CLIENT_ID": {
+            "description": "OAuth Client ID"
+        },
+        "OAUTH_CLIENT_SECRET": {
+            "description": "OAuth Client Secret"
+        }
+    },
+    "credentials": {
+        "fields": {
+            "server": {
+                "label": "Server",
+                "viewClass": "SelectView",
+                "model": [
+                    "https://dataflow.googleapis.com/",
+                    "--- Custom URL"
+                ],
+                "required": true
+            },
+            "otherServer": {
+                "label": "Custom Server URL",
+                "viewClass": "TextFieldView"
+            },
+            "Oauth2": {
+                "label": "Oauth 2.0 authentication",
+                "viewClass": "OAuthFieldView"
+            }
+        },
+        "oauth2": {
+            "client_id": "{{OAUTH_CLIENT_ID}}",
+            "client_secret": "{{OAUTH_CLIENT_SECRET}}",
+            "auth_uri": "https://accounts.google.com/o/oauth2/auth"
+        }
+    },
+    "triggers": {
+        "startFlow": {
+            "main": "./lib/triggers/startFlow.js",
+            "type": "polling",
+            "title": "Start Flow",
+            "fields": {}
+        }
+    },
+    "actions": {
+        "dataflow_projects_workerMessages": {
+            "main": "./lib/actions/dataflow_projects_workerMessages.js",
+            "title": "Send a worker_message to the service.",
+            "description": "Send a worker_message to the service.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/dataflow_projects_workerMessages.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "dataflow_projects_jobs_list": {
+            "main": "./lib/actions/dataflow_projects_jobs_list.js",
+            "title": "List the jobs of a project.\n\nTo list the jobs of a project in a region, we recommend using\n`projects.locations.jobs.get` with a [regional endpoint]\n(https://cloud.google.com/dataflow/docs/concepts/regional-endpoints). To\nlist the all jobs across all regions, use `projects.jobs.aggregated`. Using\n`projects.jobs.list` is not recommended, as you can only get the list of\njobs that are running in `us-central1`.",
+            "description": "List the jobs of a project.\n\nTo list the jobs of a project in a region, we recommend using\n`projects.locations.jobs.get` with a [regional endpoint]\n(https://cloud.google.com/dataflow/docs/concepts/regional-endpoints). To\nlist the all jobs across all regions, use `projects.jobs.aggregated`. Using\n`projects.jobs.list` is not recommended, as you can only get the list of\njobs that are running in `us-central1`.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/dataflow_projects_jobs_list.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "dataflow_projects_jobs_create": {
+            "main": "./lib/actions/dataflow_projects_jobs_create.js",
+            "title": "Creates a Cloud Dataflow job.\n\nTo create a job, we recommend using `projects.locations.jobs.create` with a\n[regional endpoint]\n(https://cloud.google.com/dataflow/docs/concepts/regional-endpoints). Using\n`projects.jobs.create` is not recommended, as your job will always start\nin `us-central1`.",
+            "description": "Creates a Cloud Dataflow job.\n\nTo create a job, we recommend using `projects.locations.jobs.create` with a\n[regional endpoint]\n(https://cloud.google.com/dataflow/docs/concepts/regional-endpoints). Using\n`projects.jobs.create` is not recommended, as your job will always start\nin `us-central1`.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/dataflow_projects_jobs_create.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "dataflow_projects_jobs_get": {
+            "main": "./lib/actions/dataflow_projects_jobs_get.js",
+            "title": "Gets the state of the specified Cloud Dataflow job.\n\nTo get the state of a job, we recommend using `projects.locations.jobs.get`\nwith a [regional endpoint]\n(https://cloud.google.com/dataflow/docs/concepts/regional-endpoints). Using\n`projects.jobs.get` is not recommended, as you can only get the state of\njobs that are running in `us-central1`.",
+            "description": "Gets the state of the specified Cloud Dataflow job.\n\nTo get the state of a job, we recommend using `projects.locations.jobs.get`\nwith a [regional endpoint]\n(https://cloud.google.com/dataflow/docs/concepts/regional-endpoints). Using\n`projects.jobs.get` is not recommended, as you can only get the state of\njobs that are running in `us-central1`.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/dataflow_projects_jobs_get.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "dataflow_projects_jobs_update": {
+            "main": "./lib/actions/dataflow_projects_jobs_update.js",
+            "title": "Updates the state of an existing Cloud Dataflow job.\n\nTo update the state of an existing job, we recommend using\n`projects.locations.jobs.update` with a [regional endpoint]\n(https://cloud.google.com/dataflow/docs/concepts/regional-endpoints). Using\n`projects.jobs.update` is not recommended, as you can only update the state\nof jobs that are running in `us-central1`.",
+            "description": "Updates the state of an existing Cloud Dataflow job.\n\nTo update the state of an existing job, we recommend using\n`projects.locations.jobs.update` with a [regional endpoint]\n(https://cloud.google.com/dataflow/docs/concepts/regional-endpoints). Using\n`projects.jobs.update` is not recommended, as you can only update the state\nof jobs that are running in `us-central1`.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/dataflow_projects_jobs_update.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "dataflow_projects_jobs_debug_getConfig": {
+            "main": "./lib/actions/dataflow_projects_jobs_debug_getConfig.js",
+            "title": "Get encoded debug configuration for component. Not cacheable.",
+            "description": "Get encoded debug configuration for component. Not cacheable.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/dataflow_projects_jobs_debug_getConfig.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "dataflow_projects_jobs_debug_sendCapture": {
+            "main": "./lib/actions/dataflow_projects_jobs_debug_sendCapture.js",
+            "title": "Send encoded debug capture data for component.",
+            "description": "Send encoded debug capture data for component.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/dataflow_projects_jobs_debug_sendCapture.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "dataflow_projects_jobs_messages_list": {
+            "main": "./lib/actions/dataflow_projects_jobs_messages_list.js",
+            "title": "Request the job status.\n\nTo request the status of a job, we recommend using\n`projects.locations.jobs.messages.list` with a [regional endpoint]\n(https://cloud.google.com/dataflow/docs/concepts/regional-endpoints). Using\n`projects.jobs.messages.list` is not recommended, as you can only request\nthe status of jobs that are running in `us-central1`.",
+            "description": "Request the job status.\n\nTo request the status of a job, we recommend using\n`projects.locations.jobs.messages.list` with a [regional endpoint]\n(https://cloud.google.com/dataflow/docs/concepts/regional-endpoints). Using\n`projects.jobs.messages.list` is not recommended, as you can only request\nthe status of jobs that are running in `us-central1`.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/dataflow_projects_jobs_messages_list.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "dataflow_projects_jobs_getMetrics": {
+            "main": "./lib/actions/dataflow_projects_jobs_getMetrics.js",
+            "title": "Request the job status.\n\nTo request the status of a job, we recommend using\n`projects.locations.jobs.getMetrics` with a [regional endpoint]\n(https://cloud.google.com/dataflow/docs/concepts/regional-endpoints). Using\n`projects.jobs.getMetrics` is not recommended, as you can only request the\nstatus of jobs that are running in `us-central1`.",
+            "description": "Request the job status.\n\nTo request the status of a job, we recommend using\n`projects.locations.jobs.getMetrics` with a [regional endpoint]\n(https://cloud.google.com/dataflow/docs/concepts/regional-endpoints). Using\n`projects.jobs.getMetrics` is not recommended, as you can only request the\nstatus of jobs that are running in `us-central1`.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/dataflow_projects_jobs_getMetrics.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "dataflow_projects_jobs_workItems_lease": {
+            "main": "./lib/actions/dataflow_projects_jobs_workItems_lease.js",
+            "title": "Leases a dataflow WorkItem to run.",
+            "description": "Leases a dataflow WorkItem to run.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/dataflow_projects_jobs_workItems_lease.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "dataflow_projects_jobs_workItems_reportStatus": {
+            "main": "./lib/actions/dataflow_projects_jobs_workItems_reportStatus.js",
+            "title": "Reports the status of dataflow WorkItems leased by a worker.",
+            "description": "Reports the status of dataflow WorkItems leased by a worker.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/dataflow_projects_jobs_workItems_reportStatus.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "dataflow_projects_jobs_snapshot": {
+            "main": "./lib/actions/dataflow_projects_jobs_snapshot.js",
+            "title": "Snapshot the state of a streaming job.",
+            "description": "Snapshot the state of a streaming job.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/dataflow_projects_jobs_snapshot.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "dataflow_projects_jobs_aggregated": {
+            "main": "./lib/actions/dataflow_projects_jobs_aggregated.js",
+            "title": "List the jobs of a project across all regions.",
+            "description": "List the jobs of a project across all regions.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/dataflow_projects_jobs_aggregated.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "dataflow_projects_locations_workerMessages": {
+            "main": "./lib/actions/dataflow_projects_locations_workerMessages.js",
+            "title": "Send a worker_message to the service.",
+            "description": "Send a worker_message to the service.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/dataflow_projects_locations_workerMessages.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "dataflow_projects_locations_jobs_list": {
+            "main": "./lib/actions/dataflow_projects_locations_jobs_list.js",
+            "title": "List the jobs of a project.\n\nTo list the jobs of a project in a region, we recommend using\n`projects.locations.jobs.get` with a [regional endpoint]\n(https://cloud.google.com/dataflow/docs/concepts/regional-endpoints). To\nlist the all jobs across all regions, use `projects.jobs.aggregated`. Using\n`projects.jobs.list` is not recommended, as you can only get the list of\njobs that are running in `us-central1`.",
+            "description": "List the jobs of a project.\n\nTo list the jobs of a project in a region, we recommend using\n`projects.locations.jobs.get` with a [regional endpoint]\n(https://cloud.google.com/dataflow/docs/concepts/regional-endpoints). To\nlist the all jobs across all regions, use `projects.jobs.aggregated`. Using\n`projects.jobs.list` is not recommended, as you can only get the list of\njobs that are running in `us-central1`.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/dataflow_projects_locations_jobs_list.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "dataflow_projects_locations_jobs_create": {
+            "main": "./lib/actions/dataflow_projects_locations_jobs_create.js",
+            "title": "Creates a Cloud Dataflow job.\n\nTo create a job, we recommend using `projects.locations.jobs.create` with a\n[regional endpoint]\n(https://cloud.google.com/dataflow/docs/concepts/regional-endpoints). Using\n`projects.jobs.create` is not recommended, as your job will always start\nin `us-central1`.",
+            "description": "Creates a Cloud Dataflow job.\n\nTo create a job, we recommend using `projects.locations.jobs.create` with a\n[regional endpoint]\n(https://cloud.google.com/dataflow/docs/concepts/regional-endpoints). Using\n`projects.jobs.create` is not recommended, as your job will always start\nin `us-central1`.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/dataflow_projects_locations_jobs_create.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "dataflow_projects_locations_jobs_get": {
+            "main": "./lib/actions/dataflow_projects_locations_jobs_get.js",
+            "title": "Gets the state of the specified Cloud Dataflow job.\n\nTo get the state of a job, we recommend using `projects.locations.jobs.get`\nwith a [regional endpoint]\n(https://cloud.google.com/dataflow/docs/concepts/regional-endpoints). Using\n`projects.jobs.get` is not recommended, as you can only get the state of\njobs that are running in `us-central1`.",
+            "description": "Gets the state of the specified Cloud Dataflow job.\n\nTo get the state of a job, we recommend using `projects.locations.jobs.get`\nwith a [regional endpoint]\n(https://cloud.google.com/dataflow/docs/concepts/regional-endpoints). Using\n`projects.jobs.get` is not recommended, as you can only get the state of\njobs that are running in `us-central1`.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/dataflow_projects_locations_jobs_get.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "dataflow_projects_locations_jobs_update": {
+            "main": "./lib/actions/dataflow_projects_locations_jobs_update.js",
+            "title": "Updates the state of an existing Cloud Dataflow job.\n\nTo update the state of an existing job, we recommend using\n`projects.locations.jobs.update` with a [regional endpoint]\n(https://cloud.google.com/dataflow/docs/concepts/regional-endpoints). Using\n`projects.jobs.update` is not recommended, as you can only update the state\nof jobs that are running in `us-central1`.",
+            "description": "Updates the state of an existing Cloud Dataflow job.\n\nTo update the state of an existing job, we recommend using\n`projects.locations.jobs.update` with a [regional endpoint]\n(https://cloud.google.com/dataflow/docs/concepts/regional-endpoints). Using\n`projects.jobs.update` is not recommended, as you can only update the state\nof jobs that are running in `us-central1`.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/dataflow_projects_locations_jobs_update.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "dataflow_projects_locations_jobs_debug_getConfig": {
+            "main": "./lib/actions/dataflow_projects_locations_jobs_debug_getConfig.js",
+            "title": "Get encoded debug configuration for component. Not cacheable.",
+            "description": "Get encoded debug configuration for component. Not cacheable.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/dataflow_projects_locations_jobs_debug_getConfig.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "dataflow_projects_locations_jobs_debug_sendCapture": {
+            "main": "./lib/actions/dataflow_projects_locations_jobs_debug_sendCapture.js",
+            "title": "Send encoded debug capture data for component.",
+            "description": "Send encoded debug capture data for component.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/dataflow_projects_locations_jobs_debug_sendCapture.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "dataflow_projects_locations_jobs_messages_list": {
+            "main": "./lib/actions/dataflow_projects_locations_jobs_messages_list.js",
+            "title": "Request the job status.\n\nTo request the status of a job, we recommend using\n`projects.locations.jobs.messages.list` with a [regional endpoint]\n(https://cloud.google.com/dataflow/docs/concepts/regional-endpoints). Using\n`projects.jobs.messages.list` is not recommended, as you can only request\nthe status of jobs that are running in `us-central1`.",
+            "description": "Request the job status.\n\nTo request the status of a job, we recommend using\n`projects.locations.jobs.messages.list` with a [regional endpoint]\n(https://cloud.google.com/dataflow/docs/concepts/regional-endpoints). Using\n`projects.jobs.messages.list` is not recommended, as you can only request\nthe status of jobs that are running in `us-central1`.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/dataflow_projects_locations_jobs_messages_list.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "dataflow_projects_locations_jobs_getMetrics": {
+            "main": "./lib/actions/dataflow_projects_locations_jobs_getMetrics.js",
+            "title": "Request the job status.\n\nTo request the status of a job, we recommend using\n`projects.locations.jobs.getMetrics` with a [regional endpoint]\n(https://cloud.google.com/dataflow/docs/concepts/regional-endpoints). Using\n`projects.jobs.getMetrics` is not recommended, as you can only request the\nstatus of jobs that are running in `us-central1`.",
+            "description": "Request the job status.\n\nTo request the status of a job, we recommend using\n`projects.locations.jobs.getMetrics` with a [regional endpoint]\n(https://cloud.google.com/dataflow/docs/concepts/regional-endpoints). Using\n`projects.jobs.getMetrics` is not recommended, as you can only request the\nstatus of jobs that are running in `us-central1`.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/dataflow_projects_locations_jobs_getMetrics.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "dataflow_projects_locations_jobs_workItems_lease": {
+            "main": "./lib/actions/dataflow_projects_locations_jobs_workItems_lease.js",
+            "title": "Leases a dataflow WorkItem to run.",
+            "description": "Leases a dataflow WorkItem to run.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/dataflow_projects_locations_jobs_workItems_lease.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "dataflow_projects_locations_jobs_workItems_reportStatus": {
+            "main": "./lib/actions/dataflow_projects_locations_jobs_workItems_reportStatus.js",
+            "title": "Reports the status of dataflow WorkItems leased by a worker.",
+            "description": "Reports the status of dataflow WorkItems leased by a worker.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/dataflow_projects_locations_jobs_workItems_reportStatus.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "dataflow_projects_locations_jobs_snapshot": {
+            "main": "./lib/actions/dataflow_projects_locations_jobs_snapshot.js",
+            "title": "Snapshot the state of a streaming job.",
+            "description": "Snapshot the state of a streaming job.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/dataflow_projects_locations_jobs_snapshot.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "dataflow_projects_locations_templates_create": {
+            "main": "./lib/actions/dataflow_projects_locations_templates_create.js",
+            "title": "Creates a Cloud Dataflow job from a template.",
+            "description": "Creates a Cloud Dataflow job from a template.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/dataflow_projects_locations_templates_create.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "dataflow_projects_locations_templates_get": {
+            "main": "./lib/actions/dataflow_projects_locations_templates_get.js",
+            "title": "Get the template associated with a template.",
+            "description": "Get the template associated with a template.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/dataflow_projects_locations_templates_get.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "dataflow_projects_locations_templates_launch": {
+            "main": "./lib/actions/dataflow_projects_locations_templates_launch.js",
+            "title": "Launch a template.",
+            "description": "Launch a template.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/dataflow_projects_locations_templates_launch.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "dataflow_projects_templates_create": {
+            "main": "./lib/actions/dataflow_projects_templates_create.js",
+            "title": "Creates a Cloud Dataflow job from a template.",
+            "description": "Creates a Cloud Dataflow job from a template.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/dataflow_projects_templates_create.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "dataflow_projects_templates_get": {
+            "main": "./lib/actions/dataflow_projects_templates_get.js",
+            "title": "Get the template associated with a template.",
+            "description": "Get the template associated with a template.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/dataflow_projects_templates_get.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "dataflow_projects_templates_launch": {
+            "main": "./lib/actions/dataflow_projects_templates_launch.js",
+            "title": "Launch a template.",
+            "description": "Launch a template.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/dataflow_projects_templates_launch.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        }
+    }
+}

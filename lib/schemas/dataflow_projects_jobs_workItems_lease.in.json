@@ -1,0 +1,92 @@
+{
+    "type": "object",
+    "properties": {
+        "jobId": {
+            "required": true,
+            "type": "string"
+        },
+        "projectId": {
+            "required": true,
+            "type": "string"
+        },
+        "alt": {
+            "type": "string",
+            "enum": [
+                "json",
+                "media",
+                "proto"
+            ],
+            "default": "json"
+        },
+        "callback": {
+            "type": "string"
+        },
+        "fields": {
+            "type": "string"
+        },
+        "key": {
+            "type": "string"
+        },
+        "oauth_token": {
+            "type": "string"
+        },
+        "prettyPrint": {
+            "type": "boolean",
+            "default": true
+        },
+        "quotaUser": {
+            "type": "string"
+        },
+        "uploadType": {
+            "type": "string"
+        },
+        "upload_protocol": {
+            "type": "string"
+        },
+        "requestBody": {
+            "description": "Request to lease WorkItems.",
+            "properties": {
+                "currentWorkerTime": {
+                    "description": "The current timestamp at the worker.",
+                    "format": "google-datetime",
+                    "type": "string"
+                },
+                "location": {
+                    "description": "The [regional endpoint]\n(https://cloud.google.com/dataflow/docs/concepts/regional-endpoints) that\ncontains the WorkItem's job.",
+                    "type": "string"
+                },
+                "requestedLeaseDuration": {
+                    "description": "The initial lease period.",
+                    "format": "google-duration",
+                    "type": "string"
+                },
+                "unifiedWorkerRequest": {
+                    "additionalProperties": {
+                        "description": "Properties of the object. Contains field @type with type URL."
+                    },
+                    "description": "Untranslated bag-of-bytes WorkRequest from UnifiedWorker.",
+                    "type": "object"
+                },
+                "workItemTypes": {
+                    "description": "Filter for WorkItem type.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "workerCapabilities": {
+                    "description": "Worker capabilities. WorkItems might be limited to workers with specific\ncapabilities.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "workerId": {
+                    "description": "Identifies the worker leasing work -- typically the ID of the\nvirtual machine running the worker.",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        }
+    }
+}

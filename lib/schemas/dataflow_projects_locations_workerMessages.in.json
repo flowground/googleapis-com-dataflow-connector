@@ -1,0 +1,199 @@
+{
+    "type": "object",
+    "properties": {
+        "location": {
+            "required": true,
+            "type": "string"
+        },
+        "projectId": {
+            "required": true,
+            "type": "string"
+        },
+        "alt": {
+            "type": "string",
+            "enum": [
+                "json",
+                "media",
+                "proto"
+            ],
+            "default": "json"
+        },
+        "callback": {
+            "type": "string"
+        },
+        "fields": {
+            "type": "string"
+        },
+        "key": {
+            "type": "string"
+        },
+        "oauth_token": {
+            "type": "string"
+        },
+        "prettyPrint": {
+            "type": "boolean",
+            "default": true
+        },
+        "quotaUser": {
+            "type": "string"
+        },
+        "uploadType": {
+            "type": "string"
+        },
+        "upload_protocol": {
+            "type": "string"
+        },
+        "requestBody": {
+            "description": "A request for sending worker messages to the service.",
+            "properties": {
+                "location": {
+                    "description": "The [regional endpoint]\n(https://cloud.google.com/dataflow/docs/concepts/regional-endpoints) that\ncontains the job.",
+                    "type": "string"
+                },
+                "workerMessages": {
+                    "description": "The WorkerMessages to send.",
+                    "items": {
+                        "description": "WorkerMessage provides information to the backend about a worker.",
+                        "properties": {
+                            "labels": {
+                                "additionalProperties": {
+                                    "type": "string"
+                                },
+                                "description": "Labels are used to group WorkerMessages.\nFor example, a worker_message about a particular container\nmight have the labels:\n{ \"JOB_ID\": \"2015-04-22\",\n  \"WORKER_ID\": \"wordcount-vm-2015…\"\n  \"CONTAINER_TYPE\": \"worker\",\n  \"CONTAINER_ID\": \"ac1234def\"}\nLabel tags typically correspond to Label enum values. However, for ease\nof development other strings can be used as tags. LABEL_UNSPECIFIED should\nnot be used here.",
+                                "type": "object"
+                            },
+                            "time": {
+                                "description": "The timestamp of the worker_message.",
+                                "format": "google-datetime",
+                                "type": "string"
+                            },
+                            "workerHealthReport": {
+                                "description": "The health of a worker.",
+                                "properties": {
+                                    "pods": {
+                                        "description": "The pods running on the worker. See:\nhttp://kubernetes.io/v1.1/docs/api-reference/v1/definitions.html#_v1_pod\n\nThis field is used by the worker to send the status of the indvidual\ncontainers running on each worker.",
+                                        "items": {
+                                            "additionalProperties": {
+                                                "description": "Properties of the object."
+                                            },
+                                            "type": "object"
+                                        },
+                                        "type": "array"
+                                    },
+                                    "reportInterval": {
+                                        "description": "The interval at which the worker is sending health reports.\nThe default value of 0 should be interpreted as the field is not being\nexplicitly set by the worker.",
+                                        "format": "google-duration",
+                                        "type": "string"
+                                    },
+                                    "vmIsHealthy": {
+                                        "description": "Whether the VM is healthy.",
+                                        "type": "boolean"
+                                    },
+                                    "vmStartupTime": {
+                                        "description": "The time the VM was booted.",
+                                        "format": "google-datetime",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "workerLifecycleEvent": {
+                                "description": "Record of worker lifecycle events.",
+                                "properties": {
+                                    "containerStartTime": {
+                                        "description": "The start time of this container. All events will report this so that\nevents can be grouped together across container/VM restarts.",
+                                        "format": "google-datetime",
+                                        "type": "string"
+                                    },
+                                    "event": {
+                                        "description": "The event being reported.",
+                                        "enum": [
+                                            "UNKNOWN_EVENT",
+                                            "OS_START",
+                                            "CONTAINER_START",
+                                            "NETWORK_UP",
+                                            "STAGING_FILES_DOWNLOAD_START",
+                                            "STAGING_FILES_DOWNLOAD_FINISH",
+                                            "SDK_INSTALL_START",
+                                            "SDK_INSTALL_FINISH"
+                                        ],
+                                        "type": "string"
+                                    },
+                                    "metadata": {
+                                        "additionalProperties": {
+                                            "type": "string"
+                                        },
+                                        "description": "Other stats that can accompany an event. E.g.\n{ \"downloaded_bytes\" : \"123456\" }",
+                                        "type": "object"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "workerMessageCode": {
+                                "description": "A worker message code.",
+                                "properties": {
+                                    "code": {
+                                        "description": "The code is a string intended for consumption by a machine that identifies\nthe type of message being sent.\nExamples:\n 1. \"HARNESS_STARTED\" might be used to indicate the worker harness has\n     started.\n 2. \"GCS_DOWNLOAD_ERROR\" might be used to indicate an error downloading\n    a GCS file as part of the boot process of one of the worker containers.\n\nThis is a string and not an enum to make it easy to add new codes without\nwaiting for an API change.",
+                                        "type": "string"
+                                    },
+                                    "parameters": {
+                                        "additionalProperties": {
+                                            "description": "Properties of the object."
+                                        },
+                                        "description": "Parameters contains specific information about the code.\n\nThis is a struct to allow parameters of different types.\n\nExamples:\n 1. For a \"HARNESS_STARTED\" message parameters might provide the name\n    of the worker and additional data like timing information.\n 2. For a \"GCS_DOWNLOAD_ERROR\" parameters might contain fields listing\n    the GCS objects being downloaded and fields containing errors.\n\nIn general complex data structures should be avoided. If a worker\nneeds to send a specific and complicated data structure then please\nconsider defining a new proto and adding it to the data oneof in\nWorkerMessageResponse.\n\nConventions:\n Parameters should only be used for information that isn't typically passed\n as a label.\n hostname and other worker identifiers should almost always be passed\n as labels since they will be included on most messages.",
+                                        "type": "object"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "workerMetrics": {
+                                "description": "Resource metrics reported by workers.",
+                                "properties": {
+                                    "cpuTime": {
+                                        "description": "CPU utilization samples.",
+                                        "items": {
+                                            "description": "Modeled after information exposed by /proc/stat.",
+                                            "properties": {
+                                                "rate": {
+                                                    "description": "Average CPU utilization rate (% non-idle cpu / second) since previous\nsample.",
+                                                    "format": "double",
+                                                    "type": "number"
+                                                },
+                                                "timestamp": {
+                                                    "description": "Timestamp of the measurement.",
+                                                    "format": "google-datetime",
+                                                    "type": "string"
+                                                },
+                                                "totalMs": {
+                                                    "description": "Total active CPU time across all cores (ie., non-idle) in milliseconds\nsince start-up.",
+                                                    "format": "uint64",
+                                                    "type": "string"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "type": "array"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "workerShutdownNotice": {
+                                "description": "Shutdown notice by workers.",
+                                "properties": {
+                                    "reason": {
+                                        "description": "The reason for the worker shutdown.\nCurrent possible values are:\n  \"UNKNOWN\": shutdown reason is unknown.\n  \"PREEMPTION\": shutdown reason is preemption.\nOther possible reasons may be added in the future.",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    "type": "array"
+                }
+            },
+            "type": "object"
+        }
+    }
+}

@@ -1,0 +1,1051 @@
+{
+    "type": "object",
+    "properties": {
+        "jobId": {
+            "required": true,
+            "type": "string"
+        },
+        "location": {
+            "required": true,
+            "type": "string"
+        },
+        "projectId": {
+            "required": true,
+            "type": "string"
+        },
+        "callback": {
+            "type": "string"
+        },
+        "fields": {
+            "type": "string"
+        },
+        "key": {
+            "type": "string"
+        },
+        "oauth_token": {
+            "type": "string"
+        },
+        "prettyPrint": {
+            "type": "boolean",
+            "default": true
+        },
+        "quotaUser": {
+            "type": "string"
+        },
+        "uploadType": {
+            "type": "string"
+        },
+        "upload_protocol": {
+            "type": "string"
+        },
+        "requestBody": {
+            "description": "Defines a job to be run by the Cloud Dataflow service.",
+            "properties": {
+                "clientRequestId": {
+                    "description": "The client's unique identifier of the job, re-used across retried attempts.\nIf this field is set, the service will ensure its uniqueness.\nThe request to create a job will fail if the service has knowledge of a\npreviously submitted job with the same client's ID and job name.\nThe caller may use this field to ensure idempotence of job\ncreation across retried attempts to create a job.\nBy default, the field is empty and, in that case, the service ignores it.",
+                    "type": "string"
+                },
+                "createTime": {
+                    "description": "The timestamp when the job was initially created. Immutable and set by the\nCloud Dataflow service.",
+                    "format": "google-datetime",
+                    "type": "string"
+                },
+                "createdFromSnapshotId": {
+                    "description": "If this is specified, the job's initial state is populated from the given\nsnapshot.",
+                    "type": "string"
+                },
+                "currentState": {
+                    "description": "The current state of the job.\n\nJobs are created in the `JOB_STATE_STOPPED` state unless otherwise\nspecified.\n\nA job in the `JOB_STATE_RUNNING` state may asynchronously enter a\nterminal state. After a job has reached a terminal state, no\nfurther state updates may be made.\n\nThis field may be mutated by the Cloud Dataflow service;\ncallers cannot mutate it.",
+                    "enum": [
+                        "JOB_STATE_UNKNOWN",
+                        "JOB_STATE_STOPPED",
+                        "JOB_STATE_RUNNING",
+                        "JOB_STATE_DONE",
+                        "JOB_STATE_FAILED",
+                        "JOB_STATE_CANCELLED",
+                        "JOB_STATE_UPDATED",
+                        "JOB_STATE_DRAINING",
+                        "JOB_STATE_DRAINED",
+                        "JOB_STATE_PENDING",
+                        "JOB_STATE_CANCELLING",
+                        "JOB_STATE_QUEUED"
+                    ],
+                    "type": "string"
+                },
+                "currentStateTime": {
+                    "description": "The timestamp associated with the current state.",
+                    "format": "google-datetime",
+                    "type": "string"
+                },
+                "environment": {
+                    "description": "The environment for the job.",
+                    "properties": {
+                        "clusterManagerApiService": {
+                            "description": "The type of cluster manager API to use.  If unknown or\nunspecified, the service will attempt to choose a reasonable\ndefault.  This should be in the form of the API service name,\ne.g. \"compute.googleapis.com\".",
+                            "type": "string"
+                        },
+                        "dataset": {
+                            "description": "The dataset for the current project where various workflow\nrelated tables are stored.\n\nThe supported resource type is:\n\nGoogle BigQuery:\n  bigquery.googleapis.com/{dataset}",
+                            "type": "string"
+                        },
+                        "experiments": {
+                            "description": "The list of experiments to enable.",
+                            "items": {
+                                "type": "string"
+                            },
+                            "type": "array"
+                        },
+                        "flexResourceSchedulingGoal": {
+                            "description": "Which Flexible Resource Scheduling mode to run in.",
+                            "enum": [
+                                "FLEXRS_UNSPECIFIED",
+                                "FLEXRS_SPEED_OPTIMIZED",
+                                "FLEXRS_COST_OPTIMIZED"
+                            ],
+                            "type": "string"
+                        },
+                        "internalExperiments": {
+                            "additionalProperties": {
+                                "description": "Properties of the object. Contains field @type with type URL."
+                            },
+                            "description": "Experimental settings.",
+                            "type": "object"
+                        },
+                        "sdkPipelineOptions": {
+                            "additionalProperties": {
+                                "description": "Properties of the object."
+                            },
+                            "description": "The Cloud Dataflow SDK pipeline options specified by the user. These\noptions are passed through the service and are used to recreate the\nSDK pipeline options on the worker in a language agnostic and platform\nindependent way.",
+                            "type": "object"
+                        },
+                        "serviceAccountEmail": {
+                            "description": "Identity to run virtual machines as. Defaults to the default account.",
+                            "type": "string"
+                        },
+                        "tempStoragePrefix": {
+                            "description": "The prefix of the resources the system should use for temporary\nstorage.  The system will append the suffix \"/temp-{JOBNAME} to\nthis resource prefix, where {JOBNAME} is the value of the\njob_name field.  The resulting bucket and object prefix is used\nas the prefix of the resources used to store temporary data\nneeded during the job execution.  NOTE: This will override the\nvalue in taskrunner_settings.\nThe supported resource type is:\n\nGoogle Cloud Storage:\n\n  storage.googleapis.com/{bucket}/{object}\n  bucket.storage.googleapis.com/{object}",
+                            "type": "string"
+                        },
+                        "userAgent": {
+                            "additionalProperties": {
+                                "description": "Properties of the object."
+                            },
+                            "description": "A description of the process that generated the request.",
+                            "type": "object"
+                        },
+                        "version": {
+                            "additionalProperties": {
+                                "description": "Properties of the object."
+                            },
+                            "description": "A structure describing which components and their versions of the service\nare required in order to run the job.",
+                            "type": "object"
+                        },
+                        "workerPools": {
+                            "description": "The worker pools. At least one \"harness\" worker pool must be\nspecified in order for the job to have workers.",
+                            "items": {
+                                "description": "Describes one particular pool of Cloud Dataflow workers to be\ninstantiated by the Cloud Dataflow service in order to perform the\ncomputations required by a job.  Note that a workflow job may use\nmultiple pools, in order to match the various computational\nrequirements of the various stages of the job.",
+                                "properties": {
+                                    "autoscalingSettings": {
+                                        "description": "Settings for autoscaling of this WorkerPool.",
+                                        "properties": {
+                                            "algorithm": {
+                                                "description": "The algorithm to use for autoscaling.",
+                                                "enum": [
+                                                    "AUTOSCALING_ALGORITHM_UNKNOWN",
+                                                    "AUTOSCALING_ALGORITHM_NONE",
+                                                    "AUTOSCALING_ALGORITHM_BASIC"
+                                                ],
+                                                "type": "string"
+                                            },
+                                            "maxNumWorkers": {
+                                                "description": "The maximum number of workers to cap scaling at.",
+                                                "format": "int32",
+                                                "type": "integer"
+                                            }
+                                        },
+                                        "type": "object"
+                                    },
+                                    "dataDisks": {
+                                        "description": "Data disks that are used by a VM in this workflow.",
+                                        "items": {
+                                            "description": "Describes the data disk used by a workflow job.",
+                                            "properties": {
+                                                "diskType": {
+                                                    "description": "Disk storage type, as defined by Google Compute Engine.  This\nmust be a disk type appropriate to the project and zone in which\nthe workers will run.  If unknown or unspecified, the service\nwill attempt to choose a reasonable default.\n\nFor example, the standard persistent disk type is a resource name\ntypically ending in \"pd-standard\".  If SSD persistent disks are\navailable, the resource name typically ends with \"pd-ssd\".  The\nactual valid values are defined the Google Compute Engine API,\nnot by the Cloud Dataflow API; consult the Google Compute Engine\ndocumentation for more information about determining the set of\navailable disk types for a particular project and zone.\n\nGoogle Compute Engine Disk types are local to a particular\nproject in a particular zone, and so the resource name will\ntypically look something like this:\n\ncompute.googleapis.com/projects/project-id/zones/zone/diskTypes/pd-standard",
+                                                    "type": "string"
+                                                },
+                                                "mountPoint": {
+                                                    "description": "Directory in a VM where disk is mounted.",
+                                                    "type": "string"
+                                                },
+                                                "sizeGb": {
+                                                    "description": "Size of disk in GB.  If zero or unspecified, the service will\nattempt to choose a reasonable default.",
+                                                    "format": "int32",
+                                                    "type": "integer"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "type": "array"
+                                    },
+                                    "defaultPackageSet": {
+                                        "description": "The default package set to install.  This allows the service to\nselect a default set of packages which are useful to worker\nharnesses written in a particular language.",
+                                        "enum": [
+                                            "DEFAULT_PACKAGE_SET_UNKNOWN",
+                                            "DEFAULT_PACKAGE_SET_NONE",
+                                            "DEFAULT_PACKAGE_SET_JAVA",
+                                            "DEFAULT_PACKAGE_SET_PYTHON"
+                                        ],
+                                        "type": "string"
+                                    },
+                                    "diskSizeGb": {
+                                        "description": "Size of root disk for VMs, in GB.  If zero or unspecified, the service will\nattempt to choose a reasonable default.",
+                                        "format": "int32",
+                                        "type": "integer"
+                                    },
+                                    "diskSourceImage": {
+                                        "description": "Fully qualified source image for disks.",
+                                        "type": "string"
+                                    },
+                                    "diskType": {
+                                        "description": "Type of root disk for VMs.  If empty or unspecified, the service will\nattempt to choose a reasonable default.",
+                                        "type": "string"
+                                    },
+                                    "ipConfiguration": {
+                                        "description": "Configuration for VM IPs.",
+                                        "enum": [
+                                            "WORKER_IP_UNSPECIFIED",
+                                            "WORKER_IP_PUBLIC",
+                                            "WORKER_IP_PRIVATE"
+                                        ],
+                                        "type": "string"
+                                    },
+                                    "kind": {
+                                        "description": "The kind of the worker pool; currently only `harness` and `shuffle`\nare supported.",
+                                        "type": "string"
+                                    },
+                                    "machineType": {
+                                        "description": "Machine type (e.g. \"n1-standard-1\").  If empty or unspecified, the\nservice will attempt to choose a reasonable default.",
+                                        "type": "string"
+                                    },
+                                    "metadata": {
+                                        "additionalProperties": {
+                                            "type": "string"
+                                        },
+                                        "description": "Metadata to set on the Google Compute Engine VMs.",
+                                        "type": "object"
+                                    },
+                                    "network": {
+                                        "description": "Network to which VMs will be assigned.  If empty or unspecified,\nthe service will use the network \"default\".",
+                                        "type": "string"
+                                    },
+                                    "numThreadsPerWorker": {
+                                        "description": "The number of threads per worker harness. If empty or unspecified, the\nservice will choose a number of threads (according to the number of cores\non the selected machine type for batch, or 1 by convention for streaming).",
+                                        "format": "int32",
+                                        "type": "integer"
+                                    },
+                                    "numWorkers": {
+                                        "description": "Number of Google Compute Engine workers in this pool needed to\nexecute the job.  If zero or unspecified, the service will\nattempt to choose a reasonable default.",
+                                        "format": "int32",
+                                        "type": "integer"
+                                    },
+                                    "onHostMaintenance": {
+                                        "description": "The action to take on host maintenance, as defined by the Google\nCompute Engine API.",
+                                        "type": "string"
+                                    },
+                                    "packages": {
+                                        "description": "Packages to be installed on workers.",
+                                        "items": {
+                                            "description": "The packages that must be installed in order for a worker to run the\nsteps of the Cloud Dataflow job that will be assigned to its worker\npool.\n\nThis is the mechanism by which the Cloud Dataflow SDK causes code to\nbe loaded onto the workers. For example, the Cloud Dataflow Java SDK\nmight use this to install jars containing the user's code and all of the\nvarious dependencies (libraries, data files, etc.) required in order\nfor that code to run.",
+                                            "properties": {
+                                                "location": {
+                                                    "description": "The resource to read the package from. The supported resource type is:\n\nGoogle Cloud Storage:\n\n  storage.googleapis.com/{bucket}\n  bucket.storage.googleapis.com/",
+                                                    "type": "string"
+                                                },
+                                                "name": {
+                                                    "description": "The name of the package.",
+                                                    "type": "string"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "type": "array"
+                                    },
+                                    "poolArgs": {
+                                        "additionalProperties": {
+                                            "description": "Properties of the object. Contains field @type with type URL."
+                                        },
+                                        "description": "Extra arguments for this worker pool.",
+                                        "type": "object"
+                                    },
+                                    "subnetwork": {
+                                        "description": "Subnetwork to which VMs will be assigned, if desired.  Expected to be of\nthe form \"regions/REGION/subnetworks/SUBNETWORK\".",
+                                        "type": "string"
+                                    },
+                                    "taskrunnerSettings": {
+                                        "description": "Settings passed through to Google Compute Engine workers when\nusing the standard Dataflow task runner.  Users should ignore\nthis field.",
+                                        "properties": {
+                                            "alsologtostderr": {
+                                                "description": "Whether to also send taskrunner log info to stderr.",
+                                                "type": "boolean"
+                                            },
+                                            "baseTaskDir": {
+                                                "description": "The location on the worker for task-specific subdirectories.",
+                                                "type": "string"
+                                            },
+                                            "baseUrl": {
+                                                "description": "The base URL for the taskrunner to use when accessing Google Cloud APIs.\n\nWhen workers access Google Cloud APIs, they logically do so via\nrelative URLs.  If this field is specified, it supplies the base\nURL to use for resolving these relative URLs.  The normative\nalgorithm used is defined by RFC 1808, \"Relative Uniform Resource\nLocators\".\n\nIf not specified, the default value is \"http://www.googleapis.com/\"",
+                                                "type": "string"
+                                            },
+                                            "commandlinesFileName": {
+                                                "description": "The file to store preprocessing commands in.",
+                                                "type": "string"
+                                            },
+                                            "continueOnException": {
+                                                "description": "Whether to continue taskrunner if an exception is hit.",
+                                                "type": "boolean"
+                                            },
+                                            "dataflowApiVersion": {
+                                                "description": "The API version of endpoint, e.g. \"v1b3\"",
+                                                "type": "string"
+                                            },
+                                            "harnessCommand": {
+                                                "description": "The command to launch the worker harness.",
+                                                "type": "string"
+                                            },
+                                            "languageHint": {
+                                                "description": "The suggested backend language.",
+                                                "type": "string"
+                                            },
+                                            "logDir": {
+                                                "description": "The directory on the VM to store logs.",
+                                                "type": "string"
+                                            },
+                                            "logToSerialconsole": {
+                                                "description": "Whether to send taskrunner log info to Google Compute Engine VM serial\nconsole.",
+                                                "type": "boolean"
+                                            },
+                                            "logUploadLocation": {
+                                                "description": "Indicates where to put logs.  If this is not specified, the logs\nwill not be uploaded.\n\nThe supported resource type is:\n\nGoogle Cloud Storage:\n  storage.googleapis.com/{bucket}/{object}\n  bucket.storage.googleapis.com/{object}",
+                                                "type": "string"
+                                            },
+                                            "oauthScopes": {
+                                                "description": "The OAuth2 scopes to be requested by the taskrunner in order to\naccess the Cloud Dataflow API.",
+                                                "items": {
+                                                    "type": "string"
+                                                },
+                                                "type": "array"
+                                            },
+                                            "parallelWorkerSettings": {
+                                                "description": "The settings to pass to the parallel worker harness.",
+                                                "properties": {
+                                                    "baseUrl": {
+                                                        "description": "The base URL for accessing Google Cloud APIs.\n\nWhen workers access Google Cloud APIs, they logically do so via\nrelative URLs.  If this field is specified, it supplies the base\nURL to use for resolving these relative URLs.  The normative\nalgorithm used is defined by RFC 1808, \"Relative Uniform Resource\nLocators\".\n\nIf not specified, the default value is \"http://www.googleapis.com/\"",
+                                                        "type": "string"
+                                                    },
+                                                    "reportingEnabled": {
+                                                        "description": "Whether to send work progress updates to the service.",
+                                                        "type": "boolean"
+                                                    },
+                                                    "servicePath": {
+                                                        "description": "The Cloud Dataflow service path relative to the root URL, for example,\n\"dataflow/v1b3/projects\".",
+                                                        "type": "string"
+                                                    },
+                                                    "shuffleServicePath": {
+                                                        "description": "The Shuffle service path relative to the root URL, for example,\n\"shuffle/v1beta1\".",
+                                                        "type": "string"
+                                                    },
+                                                    "tempStoragePrefix": {
+                                                        "description": "The prefix of the resources the system should use for temporary\nstorage.\n\nThe supported resource type is:\n\nGoogle Cloud Storage:\n\n  storage.googleapis.com/{bucket}/{object}\n  bucket.storage.googleapis.com/{object}",
+                                                        "type": "string"
+                                                    },
+                                                    "workerId": {
+                                                        "description": "The ID of the worker running this pipeline.",
+                                                        "type": "string"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            },
+                                            "streamingWorkerMainClass": {
+                                                "description": "The streaming worker main class name.",
+                                                "type": "string"
+                                            },
+                                            "taskGroup": {
+                                                "description": "The UNIX group ID on the worker VM to use for tasks launched by\ntaskrunner; e.g. \"wheel\".",
+                                                "type": "string"
+                                            },
+                                            "taskUser": {
+                                                "description": "The UNIX user ID on the worker VM to use for tasks launched by\ntaskrunner; e.g. \"root\".",
+                                                "type": "string"
+                                            },
+                                            "tempStoragePrefix": {
+                                                "description": "The prefix of the resources the taskrunner should use for\ntemporary storage.\n\nThe supported resource type is:\n\nGoogle Cloud Storage:\n  storage.googleapis.com/{bucket}/{object}\n  bucket.storage.googleapis.com/{object}",
+                                                "type": "string"
+                                            },
+                                            "vmId": {
+                                                "description": "The ID string of the VM.",
+                                                "type": "string"
+                                            },
+                                            "workflowFileName": {
+                                                "description": "The file to store the workflow in.",
+                                                "type": "string"
+                                            }
+                                        },
+                                        "type": "object"
+                                    },
+                                    "teardownPolicy": {
+                                        "description": "Sets the policy for determining when to turndown worker pool.\nAllowed values are: `TEARDOWN_ALWAYS`, `TEARDOWN_ON_SUCCESS`, and\n`TEARDOWN_NEVER`.\n`TEARDOWN_ALWAYS` means workers are always torn down regardless of whether\nthe job succeeds. `TEARDOWN_ON_SUCCESS` means workers are torn down\nif the job succeeds. `TEARDOWN_NEVER` means the workers are never torn\ndown.\n\nIf the workers are not torn down by the service, they will\ncontinue to run and use Google Compute Engine VM resources in the\nuser's project until they are explicitly terminated by the user.\nBecause of this, Google recommends using the `TEARDOWN_ALWAYS`\npolicy except for small, manually supervised test jobs.\n\nIf unknown or unspecified, the service will attempt to choose a reasonable\ndefault.",
+                                        "enum": [
+                                            "TEARDOWN_POLICY_UNKNOWN",
+                                            "TEARDOWN_ALWAYS",
+                                            "TEARDOWN_ON_SUCCESS",
+                                            "TEARDOWN_NEVER"
+                                        ],
+                                        "type": "string"
+                                    },
+                                    "workerHarnessContainerImage": {
+                                        "description": "Required. Docker container image that executes the Cloud Dataflow worker\nharness, residing in Google Container Registry.",
+                                        "type": "string"
+                                    },
+                                    "zone": {
+                                        "description": "Zone to run the worker pools in.  If empty or unspecified, the service\nwill attempt to choose a reasonable default.",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "type": "array"
+                        }
+                    },
+                    "type": "object"
+                },
+                "executionInfo": {
+                    "description": "Deprecated.",
+                    "properties": {
+                        "stages": {
+                            "additionalProperties": {
+                                "description": "Contains information about how a particular\ngoogle.dataflow.v1beta3.Step will be executed.",
+                                "properties": {
+                                    "stepName": {
+                                        "description": "The steps associated with the execution stage.\nNote that stages may have several steps, and that a given step\nmight be run by more than one stage.",
+                                        "items": {
+                                            "type": "string"
+                                        },
+                                        "type": "array"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "description": "A mapping from each stage to the information about that stage.",
+                            "type": "object"
+                        }
+                    },
+                    "type": "object"
+                },
+                "id": {
+                    "description": "The unique ID of this job.\n\nThis field is set by the Cloud Dataflow service when the Job is\ncreated, and is immutable for the life of the job.",
+                    "type": "string"
+                },
+                "jobMetadata": {
+                    "description": "This field is populated by the Dataflow service to support filtering jobs\nby the metadata values provided here. Populated for ListJobs and all GetJob\nviews SUMMARY and higher.",
+                    "properties": {
+                        "bigTableDetails": {
+                            "description": "Identification of a BigTable source used in the Dataflow job.",
+                            "items": {
+                                "description": "Metadata for a BigTable connector used by the job.",
+                                "properties": {
+                                    "instanceId": {
+                                        "description": "InstanceId accessed in the connection.",
+                                        "type": "string"
+                                    },
+                                    "projectId": {
+                                        "description": "ProjectId accessed in the connection.",
+                                        "type": "string"
+                                    },
+                                    "tableId": {
+                                        "description": "TableId accessed in the connection.",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "type": "array"
+                        },
+                        "bigqueryDetails": {
+                            "description": "Identification of a BigQuery source used in the Dataflow job.",
+                            "items": {
+                                "description": "Metadata for a BigQuery connector used by the job.",
+                                "properties": {
+                                    "dataset": {
+                                        "description": "Dataset accessed in the connection.",
+                                        "type": "string"
+                                    },
+                                    "projectId": {
+                                        "description": "Project accessed in the connection.",
+                                        "type": "string"
+                                    },
+                                    "query": {
+                                        "description": "Query used to access data in the connection.",
+                                        "type": "string"
+                                    },
+                                    "table": {
+                                        "description": "Table accessed in the connection.",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "type": "array"
+                        },
+                        "datastoreDetails": {
+                            "description": "Identification of a Datastore source used in the Dataflow job.",
+                            "items": {
+                                "description": "Metadata for a Datastore connector used by the job.",
+                                "properties": {
+                                    "namespace": {
+                                        "description": "Namespace used in the connection.",
+                                        "type": "string"
+                                    },
+                                    "projectId": {
+                                        "description": "ProjectId accessed in the connection.",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "type": "array"
+                        },
+                        "fileDetails": {
+                            "description": "Identification of a File source used in the Dataflow job.",
+                            "items": {
+                                "description": "Metadata for a File connector used by the job.",
+                                "properties": {
+                                    "filePattern": {
+                                        "description": "File Pattern used to access files by the connector.",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "type": "array"
+                        },
+                        "pubsubDetails": {
+                            "description": "Identification of a PubSub source used in the Dataflow job.",
+                            "items": {
+                                "description": "Metadata for a PubSub connector used by the job.",
+                                "properties": {
+                                    "subscription": {
+                                        "description": "Subscription used in the connection.",
+                                        "type": "string"
+                                    },
+                                    "topic": {
+                                        "description": "Topic accessed in the connection.",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "type": "array"
+                        },
+                        "sdkVersion": {
+                            "description": "The SDK version used to run the job.",
+                            "properties": {
+                                "sdkSupportStatus": {
+                                    "description": "The support status for this SDK version.",
+                                    "enum": [
+                                        "UNKNOWN",
+                                        "SUPPORTED",
+                                        "STALE",
+                                        "DEPRECATED",
+                                        "UNSUPPORTED"
+                                    ],
+                                    "type": "string"
+                                },
+                                "version": {
+                                    "description": "The version of the SDK used to run the job.",
+                                    "type": "string"
+                                },
+                                "versionDisplayName": {
+                                    "description": "A readable string describing the version of the SDK.",
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "spannerDetails": {
+                            "description": "Identification of a Spanner source used in the Dataflow job.",
+                            "items": {
+                                "description": "Metadata for a Spanner connector used by the job.",
+                                "properties": {
+                                    "databaseId": {
+                                        "description": "DatabaseId accessed in the connection.",
+                                        "type": "string"
+                                    },
+                                    "instanceId": {
+                                        "description": "InstanceId accessed in the connection.",
+                                        "type": "string"
+                                    },
+                                    "projectId": {
+                                        "description": "ProjectId accessed in the connection.",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "type": "array"
+                        }
+                    },
+                    "type": "object"
+                },
+                "labels": {
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "User-defined labels for this job.\n\nThe labels map can contain no more than 64 entries.  Entries of the labels\nmap are UTF8 strings that comply with the following restrictions:\n\n* Keys must conform to regexp:  \\p{Ll}\\p{Lo}{0,62}\n* Values must conform to regexp:  [\\p{Ll}\\p{Lo}\\p{N}_-]{0,63}\n* Both keys and values are additionally constrained to be <= 128 bytes in\nsize.",
+                    "type": "object"
+                },
+                "location": {
+                    "description": "The [regional endpoint]\n(https://cloud.google.com/dataflow/docs/concepts/regional-endpoints) that\ncontains this job.",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "The user-specified Cloud Dataflow job name.\n\nOnly one Job with a given name may exist in a project at any\ngiven time. If a caller attempts to create a Job with the same\nname as an already-existing Job, the attempt returns the\nexisting Job.\n\nThe name must match the regular expression\n`[a-z]([-a-z0-9]{0,38}[a-z0-9])?`",
+                    "type": "string"
+                },
+                "pipelineDescription": {
+                    "description": "Preliminary field: The format of this data may change at any time.\nA description of the user pipeline and stages through which it is executed.\nCreated by Cloud Dataflow service.  Only retrieved with\nJOB_VIEW_DESCRIPTION or JOB_VIEW_ALL.",
+                    "properties": {
+                        "displayData": {
+                            "description": "Pipeline level display data.",
+                            "items": {
+                                "description": "Data provided with a pipeline or transform to provide descriptive info.",
+                                "properties": {
+                                    "boolValue": {
+                                        "description": "Contains value if the data is of a boolean type.",
+                                        "type": "boolean"
+                                    },
+                                    "durationValue": {
+                                        "description": "Contains value if the data is of duration type.",
+                                        "format": "google-duration",
+                                        "type": "string"
+                                    },
+                                    "floatValue": {
+                                        "description": "Contains value if the data is of float type.",
+                                        "format": "float",
+                                        "type": "number"
+                                    },
+                                    "int64Value": {
+                                        "description": "Contains value if the data is of int64 type.",
+                                        "format": "int64",
+                                        "type": "string"
+                                    },
+                                    "javaClassValue": {
+                                        "description": "Contains value if the data is of java class type.",
+                                        "type": "string"
+                                    },
+                                    "key": {
+                                        "description": "The key identifying the display data.\nThis is intended to be used as a label for the display data\nwhen viewed in a dax monitoring system.",
+                                        "type": "string"
+                                    },
+                                    "label": {
+                                        "description": "An optional label to display in a dax UI for the element.",
+                                        "type": "string"
+                                    },
+                                    "namespace": {
+                                        "description": "The namespace for the key. This is usually a class name or programming\nlanguage namespace (i.e. python module) which defines the display data.\nThis allows a dax monitoring system to specially handle the data\nand perform custom rendering.",
+                                        "type": "string"
+                                    },
+                                    "shortStrValue": {
+                                        "description": "A possible additional shorter value to display.\nFor example a java_class_name_value of com.mypackage.MyDoFn\nwill be stored with MyDoFn as the short_str_value and\ncom.mypackage.MyDoFn as the java_class_name value.\nshort_str_value can be displayed and java_class_name_value\nwill be displayed as a tooltip.",
+                                        "type": "string"
+                                    },
+                                    "strValue": {
+                                        "description": "Contains value if the data is of string type.",
+                                        "type": "string"
+                                    },
+                                    "timestampValue": {
+                                        "description": "Contains value if the data is of timestamp type.",
+                                        "format": "google-datetime",
+                                        "type": "string"
+                                    },
+                                    "url": {
+                                        "description": "An optional full URL.",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "type": "array"
+                        },
+                        "executionPipelineStage": {
+                            "description": "Description of each stage of execution of the pipeline.",
+                            "items": {
+                                "description": "Description of the composing transforms, names/ids, and input/outputs of a\nstage of execution.  Some composing transforms and sources may have been\ngenerated by the Dataflow service during execution planning.",
+                                "properties": {
+                                    "componentSource": {
+                                        "description": "Collections produced and consumed by component transforms of this stage.",
+                                        "items": {
+                                            "description": "Description of an interstitial value between transforms in an execution\nstage.",
+                                            "properties": {
+                                                "name": {
+                                                    "description": "Dataflow service generated name for this source.",
+                                                    "type": "string"
+                                                },
+                                                "originalTransformOrCollection": {
+                                                    "description": "User name for the original user transform or collection with which this\nsource is most closely associated.",
+                                                    "type": "string"
+                                                },
+                                                "userName": {
+                                                    "description": "Human-readable name for this transform; may be user or system generated.",
+                                                    "type": "string"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "type": "array"
+                                    },
+                                    "componentTransform": {
+                                        "description": "Transforms that comprise this execution stage.",
+                                        "items": {
+                                            "description": "Description of a transform executed as part of an execution stage.",
+                                            "properties": {
+                                                "name": {
+                                                    "description": "Dataflow service generated name for this source.",
+                                                    "type": "string"
+                                                },
+                                                "originalTransform": {
+                                                    "description": "User name for the original user transform with which this transform is\nmost closely associated.",
+                                                    "type": "string"
+                                                },
+                                                "userName": {
+                                                    "description": "Human-readable name for this transform; may be user or system generated.",
+                                                    "type": "string"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "type": "array"
+                                    },
+                                    "id": {
+                                        "description": "Dataflow service generated id for this stage.",
+                                        "type": "string"
+                                    },
+                                    "inputSource": {
+                                        "description": "Input sources for this stage.",
+                                        "items": {
+                                            "description": "Description of an input or output of an execution stage.",
+                                            "properties": {
+                                                "name": {
+                                                    "description": "Dataflow service generated name for this source.",
+                                                    "type": "string"
+                                                },
+                                                "originalTransformOrCollection": {
+                                                    "description": "User name for the original user transform or collection with which this\nsource is most closely associated.",
+                                                    "type": "string"
+                                                },
+                                                "sizeBytes": {
+                                                    "description": "Size of the source, if measurable.",
+                                                    "format": "int64",
+                                                    "type": "string"
+                                                },
+                                                "userName": {
+                                                    "description": "Human-readable name for this source; may be user or system generated.",
+                                                    "type": "string"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "type": "array"
+                                    },
+                                    "kind": {
+                                        "description": "Type of tranform this stage is executing.",
+                                        "enum": [
+                                            "UNKNOWN_KIND",
+                                            "PAR_DO_KIND",
+                                            "GROUP_BY_KEY_KIND",
+                                            "FLATTEN_KIND",
+                                            "READ_KIND",
+                                            "WRITE_KIND",
+                                            "CONSTANT_KIND",
+                                            "SINGLETON_KIND",
+                                            "SHUFFLE_KIND"
+                                        ],
+                                        "type": "string"
+                                    },
+                                    "name": {
+                                        "description": "Dataflow service generated name for this stage.",
+                                        "type": "string"
+                                    },
+                                    "outputSource": {
+                                        "description": "Output sources for this stage.",
+                                        "items": {
+                                            "description": "Description of an input or output of an execution stage.",
+                                            "properties": {
+                                                "name": {
+                                                    "description": "Dataflow service generated name for this source.",
+                                                    "type": "string"
+                                                },
+                                                "originalTransformOrCollection": {
+                                                    "description": "User name for the original user transform or collection with which this\nsource is most closely associated.",
+                                                    "type": "string"
+                                                },
+                                                "sizeBytes": {
+                                                    "description": "Size of the source, if measurable.",
+                                                    "format": "int64",
+                                                    "type": "string"
+                                                },
+                                                "userName": {
+                                                    "description": "Human-readable name for this source; may be user or system generated.",
+                                                    "type": "string"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "type": "array"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "type": "array"
+                        },
+                        "originalPipelineTransform": {
+                            "description": "Description of each transform in the pipeline and collections between them.",
+                            "items": {
+                                "description": "Description of the type, names/ids, and input/outputs for a transform.",
+                                "properties": {
+                                    "displayData": {
+                                        "description": "Transform-specific display data.",
+                                        "items": {
+                                            "description": "Data provided with a pipeline or transform to provide descriptive info.",
+                                            "properties": {
+                                                "boolValue": {
+                                                    "description": "Contains value if the data is of a boolean type.",
+                                                    "type": "boolean"
+                                                },
+                                                "durationValue": {
+                                                    "description": "Contains value if the data is of duration type.",
+                                                    "format": "google-duration",
+                                                    "type": "string"
+                                                },
+                                                "floatValue": {
+                                                    "description": "Contains value if the data is of float type.",
+                                                    "format": "float",
+                                                    "type": "number"
+                                                },
+                                                "int64Value": {
+                                                    "description": "Contains value if the data is of int64 type.",
+                                                    "format": "int64",
+                                                    "type": "string"
+                                                },
+                                                "javaClassValue": {
+                                                    "description": "Contains value if the data is of java class type.",
+                                                    "type": "string"
+                                                },
+                                                "key": {
+                                                    "description": "The key identifying the display data.\nThis is intended to be used as a label for the display data\nwhen viewed in a dax monitoring system.",
+                                                    "type": "string"
+                                                },
+                                                "label": {
+                                                    "description": "An optional label to display in a dax UI for the element.",
+                                                    "type": "string"
+                                                },
+                                                "namespace": {
+                                                    "description": "The namespace for the key. This is usually a class name or programming\nlanguage namespace (i.e. python module) which defines the display data.\nThis allows a dax monitoring system to specially handle the data\nand perform custom rendering.",
+                                                    "type": "string"
+                                                },
+                                                "shortStrValue": {
+                                                    "description": "A possible additional shorter value to display.\nFor example a java_class_name_value of com.mypackage.MyDoFn\nwill be stored with MyDoFn as the short_str_value and\ncom.mypackage.MyDoFn as the java_class_name value.\nshort_str_value can be displayed and java_class_name_value\nwill be displayed as a tooltip.",
+                                                    "type": "string"
+                                                },
+                                                "strValue": {
+                                                    "description": "Contains value if the data is of string type.",
+                                                    "type": "string"
+                                                },
+                                                "timestampValue": {
+                                                    "description": "Contains value if the data is of timestamp type.",
+                                                    "format": "google-datetime",
+                                                    "type": "string"
+                                                },
+                                                "url": {
+                                                    "description": "An optional full URL.",
+                                                    "type": "string"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "type": "array"
+                                    },
+                                    "id": {
+                                        "description": "SDK generated id of this transform instance.",
+                                        "type": "string"
+                                    },
+                                    "inputCollectionName": {
+                                        "description": "User names for all collection inputs to this transform.",
+                                        "items": {
+                                            "type": "string"
+                                        },
+                                        "type": "array"
+                                    },
+                                    "kind": {
+                                        "description": "Type of transform.",
+                                        "enum": [
+                                            "UNKNOWN_KIND",
+                                            "PAR_DO_KIND",
+                                            "GROUP_BY_KEY_KIND",
+                                            "FLATTEN_KIND",
+                                            "READ_KIND",
+                                            "WRITE_KIND",
+                                            "CONSTANT_KIND",
+                                            "SINGLETON_KIND",
+                                            "SHUFFLE_KIND"
+                                        ],
+                                        "type": "string"
+                                    },
+                                    "name": {
+                                        "description": "User provided name for this transform instance.",
+                                        "type": "string"
+                                    },
+                                    "outputCollectionName": {
+                                        "description": "User  names for all collection outputs to this transform.",
+                                        "items": {
+                                            "type": "string"
+                                        },
+                                        "type": "array"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "type": "array"
+                        }
+                    },
+                    "type": "object"
+                },
+                "projectId": {
+                    "description": "The ID of the Cloud Platform project that the job belongs to.",
+                    "type": "string"
+                },
+                "replaceJobId": {
+                    "description": "If this job is an update of an existing job, this field is the job ID\nof the job it replaced.\n\nWhen sending a `CreateJobRequest`, you can update a job by specifying it\nhere. The job named here is stopped, and its intermediate state is\ntransferred to this job.",
+                    "type": "string"
+                },
+                "replacedByJobId": {
+                    "description": "If another job is an update of this job (and thus, this job is in\n`JOB_STATE_UPDATED`), this field contains the ID of that job.",
+                    "type": "string"
+                },
+                "requestedState": {
+                    "description": "The job's requested state.\n\n`UpdateJob` may be used to switch between the `JOB_STATE_STOPPED` and\n`JOB_STATE_RUNNING` states, by setting requested_state.  `UpdateJob` may\nalso be used to directly set a job's requested state to\n`JOB_STATE_CANCELLED` or `JOB_STATE_DONE`, irrevocably terminating the\njob if it has not already reached a terminal state.",
+                    "enum": [
+                        "JOB_STATE_UNKNOWN",
+                        "JOB_STATE_STOPPED",
+                        "JOB_STATE_RUNNING",
+                        "JOB_STATE_DONE",
+                        "JOB_STATE_FAILED",
+                        "JOB_STATE_CANCELLED",
+                        "JOB_STATE_UPDATED",
+                        "JOB_STATE_DRAINING",
+                        "JOB_STATE_DRAINED",
+                        "JOB_STATE_PENDING",
+                        "JOB_STATE_CANCELLING",
+                        "JOB_STATE_QUEUED"
+                    ],
+                    "type": "string"
+                },
+                "stageStates": {
+                    "description": "This field may be mutated by the Cloud Dataflow service;\ncallers cannot mutate it.",
+                    "items": {
+                        "description": "A message describing the state of a particular execution stage.",
+                        "properties": {
+                            "currentStateTime": {
+                                "description": "The time at which the stage transitioned to this state.",
+                                "format": "google-datetime",
+                                "type": "string"
+                            },
+                            "executionStageName": {
+                                "description": "The name of the execution stage.",
+                                "type": "string"
+                            },
+                            "executionStageState": {
+                                "description": "Executions stage states allow the same set of values as JobState.",
+                                "enum": [
+                                    "JOB_STATE_UNKNOWN",
+                                    "JOB_STATE_STOPPED",
+                                    "JOB_STATE_RUNNING",
+                                    "JOB_STATE_DONE",
+                                    "JOB_STATE_FAILED",
+                                    "JOB_STATE_CANCELLED",
+                                    "JOB_STATE_UPDATED",
+                                    "JOB_STATE_DRAINING",
+                                    "JOB_STATE_DRAINED",
+                                    "JOB_STATE_PENDING",
+                                    "JOB_STATE_CANCELLING",
+                                    "JOB_STATE_QUEUED"
+                                ],
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    "type": "array"
+                },
+                "startTime": {
+                    "description": "The timestamp when the job was started (transitioned to JOB_STATE_PENDING).\nFlexible resource scheduling jobs are started with some delay after job\ncreation, so start_time is unset before start and is updated when the\njob is started by the Cloud Dataflow service. For other jobs, start_time\nalways equals to create_time and is immutable and set by the Cloud Dataflow\nservice.",
+                    "format": "google-datetime",
+                    "type": "string"
+                },
+                "steps": {
+                    "description": "Exactly one of step or steps_location should be specified.\n\nThe top-level steps that constitute the entire job.",
+                    "items": {
+                        "description": "Defines a particular step within a Cloud Dataflow job.\n\nA job consists of multiple steps, each of which performs some\nspecific operation as part of the overall job.  Data is typically\npassed from one step to another as part of the job.\n\nHere's an example of a sequence of steps which together implement a\nMap-Reduce job:\n\n  * Read a collection of data from some source, parsing the\n    collection's elements.\n\n  * Validate the elements.\n\n  * Apply a user-defined function to map each element to some value\n    and extract an element-specific key value.\n\n  * Group elements with the same key into a single element with\n    that key, transforming a multiply-keyed collection into a\n    uniquely-keyed collection.\n\n  * Write the elements out to some data sink.\n\nNote that the Cloud Dataflow service may be used to run many different\ntypes of jobs, not just Map-Reduce.",
+                        "properties": {
+                            "kind": {
+                                "description": "The kind of step in the Cloud Dataflow job.",
+                                "type": "string"
+                            },
+                            "name": {
+                                "description": "The name that identifies the step. This must be unique for each\nstep with respect to all other steps in the Cloud Dataflow job.",
+                                "type": "string"
+                            },
+                            "properties": {
+                                "additionalProperties": {
+                                    "description": "Properties of the object."
+                                },
+                                "description": "Named properties associated with the step. Each kind of\npredefined step has its own required set of properties.\nMust be provided on Create.  Only retrieved with JOB_VIEW_ALL.",
+                                "type": "object"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    "type": "array"
+                },
+                "stepsLocation": {
+                    "description": "The GCS location where the steps are stored.",
+                    "type": "string"
+                },
+                "tempFiles": {
+                    "description": "A set of files the system should be aware of that are used\nfor temporary storage. These temporary files will be\nremoved on job completion.\nNo duplicates are allowed.\nNo file patterns are supported.\n\nThe supported files are:\n\nGoogle Cloud Storage:\n\n   storage.googleapis.com/{bucket}/{object}\n   bucket.storage.googleapis.com/{object}",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "transformNameMapping": {
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "The map of transform name prefixes of the job to be replaced to the\ncorresponding name prefixes of the new job.",
+                    "type": "object"
+                },
+                "type": {
+                    "description": "The type of Cloud Dataflow job.",
+                    "enum": [
+                        "JOB_TYPE_UNKNOWN",
+                        "JOB_TYPE_BATCH",
+                        "JOB_TYPE_STREAMING"
+                    ],
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        }
+    }
+}

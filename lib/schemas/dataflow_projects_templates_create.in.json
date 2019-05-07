@@ -1,0 +1,129 @@
+{
+    "type": "object",
+    "properties": {
+        "projectId": {
+            "required": true,
+            "type": "string"
+        },
+        "access_token": {
+            "type": "string"
+        },
+        "alt": {
+            "type": "string",
+            "enum": [
+                "json",
+                "media",
+                "proto"
+            ],
+            "default": "json"
+        },
+        "callback": {
+            "type": "string"
+        },
+        "fields": {
+            "type": "string"
+        },
+        "key": {
+            "type": "string"
+        },
+        "oauth_token": {
+            "type": "string"
+        },
+        "prettyPrint": {
+            "type": "boolean",
+            "default": true
+        },
+        "quotaUser": {
+            "type": "string"
+        },
+        "uploadType": {
+            "type": "string"
+        },
+        "upload_protocol": {
+            "type": "string"
+        },
+        "requestBody": {
+            "description": "A request to create a Cloud Dataflow job from a template.",
+            "properties": {
+                "environment": {
+                    "description": "The runtime environment for the job.",
+                    "properties": {
+                        "additionalExperiments": {
+                            "description": "Additional experiment flags for the job.",
+                            "items": {
+                                "type": "string"
+                            },
+                            "type": "array"
+                        },
+                        "additionalUserLabels": {
+                            "additionalProperties": {
+                                "type": "string"
+                            },
+                            "description": "Additional user labels attached to the job.",
+                            "type": "object"
+                        },
+                        "bypassTempDirValidation": {
+                            "description": "Whether to bypass the safety checks for the job's temporary directory.\nUse with caution.",
+                            "type": "boolean"
+                        },
+                        "machineType": {
+                            "description": "The machine type to use for the job. Defaults to the value from the\ntemplate if not specified.",
+                            "type": "string"
+                        },
+                        "maxWorkers": {
+                            "description": "The maximum number of Google Compute Engine instances to be made\navailable to your pipeline during execution, from 1 to 1000.",
+                            "format": "int32",
+                            "type": "integer"
+                        },
+                        "network": {
+                            "description": "Network to which VMs will be assigned.  If empty or unspecified,\nthe service will use the network \"default\".",
+                            "type": "string"
+                        },
+                        "numWorkers": {
+                            "description": "The initial number of Google Compute Engine instnaces for the job.",
+                            "format": "int32",
+                            "type": "integer"
+                        },
+                        "serviceAccountEmail": {
+                            "description": "The email address of the service account to run the job as.",
+                            "type": "string"
+                        },
+                        "subnetwork": {
+                            "description": "Subnetwork to which VMs will be assigned, if desired.  Expected to be of\nthe form \"regions/REGION/subnetworks/SUBNETWORK\".",
+                            "type": "string"
+                        },
+                        "tempLocation": {
+                            "description": "The Cloud Storage path to use for temporary files.\nMust be a valid Cloud Storage URL, beginning with `gs://`.",
+                            "type": "string"
+                        },
+                        "zone": {
+                            "description": "The Compute Engine [availability\nzone](https://cloud.google.com/compute/docs/regions-zones/regions-zones)\nfor launching worker instances to run your pipeline.",
+                            "type": "string"
+                        }
+                    },
+                    "type": "object"
+                },
+                "gcsPath": {
+                    "description": "Required. A Cloud Storage path to the template from which to\ncreate the job.\nMust be a valid Cloud Storage URL, beginning with `gs://`.",
+                    "type": "string"
+                },
+                "jobName": {
+                    "description": "Required. The job name to use for the created job.",
+                    "type": "string"
+                },
+                "location": {
+                    "description": "The [regional endpoint]\n(https://cloud.google.com/dataflow/docs/concepts/regional-endpoints) to\nwhich to direct the request.",
+                    "type": "string"
+                },
+                "parameters": {
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "The runtime parameters to pass to the job.",
+                    "type": "object"
+                }
+            },
+            "type": "object"
+        }
+    }
+}

@@ -1,0 +1,52 @@
+{
+    "type": "object",
+    "properties": {
+        "filter": {
+            "type": "string",
+            "enum": [
+                "UNKNOWN",
+                "ALL",
+                "TERMINATED",
+                "ACTIVE"
+            ]
+        },
+        "location": {
+            "type": "string"
+        },
+        "pageSize": {
+            "type": "integer"
+        },
+        "pageToken": {
+            "type": "string"
+        },
+        "projectId": {
+            "required": true,
+            "type": "string"
+        },
+        "view": {
+            "type": "string",
+            "enum": [
+                "JOB_VIEW_UNKNOWN",
+                "JOB_VIEW_SUMMARY",
+                "JOB_VIEW_ALL",
+                "JOB_VIEW_DESCRIPTION"
+            ]
+        },
+        "oauth_token": {
+            "type": "string"
+        },
+        "prettyPrint": {
+            "type": "boolean",
+            "default": true
+        },
+        "quotaUser": {
+            "type": "string"
+        },
+        "uploadType": {
+            "type": "string"
+        },
+        "upload_protocol": {
+            "type": "string"
+        }
+    }
+}

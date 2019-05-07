@@ -1,0 +1,49 @@
+{
+    "type": "object",
+    "properties": {
+        "endTime": {
+            "type": "string"
+        },
+        "jobId": {
+            "required": true,
+            "type": "string"
+        },
+        "location": {
+            "required": true,
+            "type": "string"
+        },
+        "minimumImportance": {
+            "type": "string",
+            "enum": [
+                "JOB_MESSAGE_IMPORTANCE_UNKNOWN",
+                "JOB_MESSAGE_DEBUG",
+                "JOB_MESSAGE_DETAILED",
+                "JOB_MESSAGE_BASIC",
+                "JOB_MESSAGE_WARNING",
+                "JOB_MESSAGE_ERROR"
+            ]
+        },
+        "pageSize": {
+            "type": "integer"
+        },
+        "pageToken": {
+            "type": "string"
+        },
+        "projectId": {
+            "required": true,
+            "type": "string"
+        },
+        "startTime": {
+            "type": "string"
+        },
+        "quotaUser": {
+            "type": "string"
+        },
+        "uploadType": {
+            "type": "string"
+        },
+        "upload_protocol": {
+            "type": "string"
+        }
+    }
+}

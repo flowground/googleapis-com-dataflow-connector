@@ -1,0 +1,64 @@
+{
+    "type": "object",
+    "properties": {
+        "jobId": {
+            "required": true,
+            "type": "string"
+        },
+        "location": {
+            "required": true,
+            "type": "string"
+        },
+        "projectId": {
+            "required": true,
+            "type": "string"
+        },
+        "callback": {
+            "type": "string"
+        },
+        "fields": {
+            "type": "string"
+        },
+        "key": {
+            "type": "string"
+        },
+        "oauth_token": {
+            "type": "string"
+        },
+        "prettyPrint": {
+            "type": "boolean",
+            "default": true
+        },
+        "quotaUser": {
+            "type": "string"
+        },
+        "uploadType": {
+            "type": "string"
+        },
+        "upload_protocol": {
+            "type": "string"
+        },
+        "requestBody": {
+            "description": "Request to send encoded debug information.",
+            "properties": {
+                "componentId": {
+                    "description": "The internal component id for which debug information is sent.",
+                    "type": "string"
+                },
+                "data": {
+                    "description": "The encoded debug information.",
+                    "type": "string"
+                },
+                "location": {
+                    "description": "The [regional endpoint]\n(https://cloud.google.com/dataflow/docs/concepts/regional-endpoints) that\ncontains the job specified by job_id.",
+                    "type": "string"
+                },
+                "workerId": {
+                    "description": "The worker id, i.e., VM hostname.",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        }
+    }
+}
